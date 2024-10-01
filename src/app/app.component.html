@@ -1,0 +1,12 @@
+<!-- Mostrar el navbar solo en login y register -->
+<nav *ngIf="mostrarNavbar()">
+  <app-navbar></app-navbar>
+</nav>
+
+<!-- Mostrar el sidebar en las demás rutas -->
+<div *ngIf="mostrarSidebar()" class="d-flex">
+  <app-sidebar></app-sidebar>
+</div>
+
+<router-outlet></router-outlet>
+

@@ -1,0 +1,4 @@
+.main-content {
+  margin-left: 280px; /* Esto hará que el contenido esté al lado derecho del sidebar */
+  padding: 20px;
+}

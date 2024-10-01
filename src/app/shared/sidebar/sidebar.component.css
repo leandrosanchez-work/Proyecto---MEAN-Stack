@@ -1,0 +1,33 @@
+.bg-light {
+  background-color: #f8f9fa !important;
+  height: 100vh; /* Asegura que ocupe toda la altura */
+  position: fixed; /* Fija el sidebar en la pantalla */
+}
+
+.nav-link {
+  font-size: 1.2rem;
+}
+
+.nav-link.active {
+  background-color: #007bff;
+  color: white !important;
+}
+
+
+
+ /*Estilos para el sidebar
+.sidebar {
+  width: 280px;
+  height: 100vh;
+  position: center;
+  top: 0;
+  left: 0;
+  background-color: #f8f9fa;
+}
+
+.main-content {
+  margin-left: 280px; /* Desplazar el contenido principal a la derecha del sidebar
+  padding: 20px;
+}
+
+*/

@@ -1,0 +1,88 @@
+<div class="main-content">
+  <table>
+    <!-- Tu tabla aquí -->
+    <div class="container mt-5">
+      <h3 class="mb-4">Datos Guardados</h3>
+
+      <div *ngIf="userDataArray && userDataArray.length > 0; else noData">
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th scope="col">Nombre</th>
+              <th scope="col">DNI</th>
+              <th scope="col">Edad</th>
+              <th scope="col">¿Tiene hijos?</th>
+              <th scope="col">Cantidad de hijos</th>
+              <th scope="col">Acciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let user of userDataArray; trackBy: trackById">
+              <td>{{ user.nombre }}</td>
+              <td>{{ user.dni }}</td>
+              <td>{{ user.edad }}</td>
+              <td>{{ user.hijos.tieneHijos === 'si' ? 'Sí' : 'No' }}</td>
+              <td *ngIf="user.hijos.tieneHijos === 'si'">{{ user.hijos.cantidad }}</td>
+              <td *ngIf="user.hijos.tieneHijos === 'no'">No tiene</td>
+              <td>
+                <button (click)="editarFormulario(user)" class="btn btn-primary btn-sm">Modificar</button>
+                <button (click)="eliminarFormulario(user._id)" class="btn btn-danger btn-sm">Eliminar</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <!-- Formulario de edición: aparece solo si un registro ha sido seleccionado -->
+      <div *ngIf="formularioActual._id">
+        <h4>Modificar Registro</h4>
+        <form>
+          <div class="form-group">
+            <label for="nombre">Nombre</label>
+            <input id="nombre" [(ngModel)]="formularioActual.nombre" class="form-control" type="text" name="nombre"/>
+          </div>
+          <div class="form-group">
+            <label for="dni">DNI</label>
+            <input id="dni" [(ngModel)]="formularioActual.dni" class="form-control" type="text" name="dni" />
+          </div>
+          <div class="form-group">
+            <label for="edad">Edad</label>
+            <input id="edad" [(ngModel)]="formularioActual.edad" class="form-control" type="number" name="edad"/>
+          </div>
+          <div class="form-group">
+            <label>¿Tiene hijos?</label>
+            <select [(ngModel)]="formularioActual.hijos.tieneHijos" class="form-control" name="hijos" >
+              <option value="si">Sí</option>
+              <option value="no">No</option>
+            </select>
+          </div>
+          <div *ngIf="formularioActual.hijos.tieneHijos === 'si'" class="form-group">
+            <label for="cantidad">Cantidad de hijos</label>
+            <input id="cantidad" [(ngModel)]="formularioActual.hijos.cantidad" class="form-control" type="number" name="cantidad"/>
+          </div>
+          <button (click)="guardarCambios()" class="btn btn-success mt-3">Guardar Cambios</button>
+        </form>
+      </div>
+      <!-- Mostrar mensaje cuando no hay datos -->
+      <ng-template #noData>
+        <p>No hay datos disponibles.</p>
+      </ng-template>
+
+
+
+      <!-- Controles de Paginación -->
+      <div class="pagination-controls">
+        <button (click)="prevPage()" [disabled]="currentPage === 1">Anterior</button>
+        <span>Página {{ currentPage }} de {{ totalPages }}</span>
+        <button (click)="nextPage()" [disabled]="currentPage === totalPages">Siguiente</button>
+      </div>
+
+
+    </div>
+  </table>
+</div>
+
+
+
+
+
+
