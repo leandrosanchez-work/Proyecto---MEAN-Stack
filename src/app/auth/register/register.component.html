@@ -1,0 +1,65 @@
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <h3 class="mb-4">Formulario de Registro</h3>
+
+      <!-- Hago la unicon entre mi form y mi controlador -->
+      <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+
+        <!-- Nombre -->
+        <div class="form-group mb-3">
+          <label for="nombre">Nombre:</label>
+          <input id="nombre" class="form-control" formControlName="nombre" placeholder="Ingrese su nombre"/>
+          <div *ngIf="registerForm.get('nombre')?.invalid && registerForm.get('nombre')?.touched" class="text-danger">
+            <small>El nombre es requerido.</small>
+          </div>
+        </div>
+
+        <!-- DNI -->
+        <div class="form-group mb-3">
+          <label for="dni">DNI:</label>
+          <input id="dni" class="form-control" formControlName="dni" placeholder="Ingrese su DNI"/>
+          <div *ngIf="registerForm.get('dni')?.invalid && registerForm.get('dni')?.touched" class="text-danger">
+            <small *ngIf="registerForm.get('dni')?.errors?.['required']">El DNI es requerido.</small>
+            <small *ngIf="registerForm.get('dni')?.errors?.['minlength']">El DNI debe tener al menos 6 caracteres.</small>
+          </div>
+        </div>
+
+        <!-- Edad -->
+        <div class="form-group mb-3">
+          <label for="edad">Edad:</label>
+          <input id="edad" class="form-control" formControlName="edad" type="number" placeholder="Ingrese su edad"/>
+          <div *ngIf="registerForm.get('edad')?.invalid && registerForm.get('edad')?.touched" class="text-danger">
+            <small *ngIf="registerForm.get('edad')?.errors?.['required']">La edad es requerida.</small>
+            <small *ngIf="registerForm.get('edad')?.errors?.['min']">Debes tener al menos 18 años.</small>
+          </div>
+        </div>
+
+        <!-- Grupo Anidado: Hijos -->
+        <div formGroupName="hijos" class="mb-4">
+          <label>¿Tiene hijos?:</label>
+          <div class="form-check">
+            <input class="form-check-input" type="radio" id="hijosSi" formControlName="tieneHijos" value="si" />
+            <label class="form-check-label" for="hijosSi">Sí</label>
+          </div>
+          <div class="form-check">
+            <input class="form-check-input" type="radio" id="hijosNo" formControlName="tieneHijos" value="no" />
+            <label class="form-check-label" for="hijosNo">No</label>
+          </div>
+
+          <!-- Cantidad de hijos solo si selecciona "Sí" -->
+          <div *ngIf="registerForm.get('hijos')?.get('tieneHijos')?.value === 'si'" class="form-group mt-3">
+            <label for="cantidad">Cantidad de hijos:</label>
+            <input id="cantidad" class="form-control" formControlName="cantidad" type="number" placeholder="Ingrese la cantidad de hijos"/>
+            <div *ngIf="registerForm.get('hijos.cantidad')?.invalid && registerForm.get('hijos.cantidad')?.touched" class="text-danger">
+              <small>Este campo es requerido.</small>
+            </div>
+          </div>
+        </div>
+
+        <!-- Botón Guardar -->
+        <button type="submit" class="btn btn-primary w-100" [disabled]="registerForm.invalid">Guardar</button>
+      </form>
+    </div>
+  </div>
+</div>
